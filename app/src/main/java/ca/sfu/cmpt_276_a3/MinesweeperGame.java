@@ -35,6 +35,8 @@ public class MinesweeperGame extends AppCompatActivity {
             table.addView(tablerow);
 
             for(int col = 0; col < 7; col++){
+                final int finalCol = col;
+                final int finalRow = row;
                 Button btn = new Button(this);
                 btn.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
@@ -46,7 +48,7 @@ public class MinesweeperGame extends AppCompatActivity {
                 btn.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        gridButtonClicked();
+                        gridButtonClicked(finalRow,finalCol);
                     }
                 });
                 tablerow.addView(btn);
@@ -55,8 +57,9 @@ public class MinesweeperGame extends AppCompatActivity {
         }
     }
 
-    private void gridButtonClicked(){
-    }
+    private void gridButtonClicked(int x, int y){
+        Toast.makeText(MinesweeperGame.this, " " + x +"," + y,
+                Toast.LENGTH_SHORT).show();    }
     public static Intent makeIntent(Context context){
         return new Intent(context,MinesweeperGame.class);
     }
