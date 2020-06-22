@@ -29,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
                 .duration(5000)
                 .repeat(0)
                 .playOn(welcomeText);
+        Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
+        finish();
+        startActivity(intent);
     }
 
     private void launchButton(){
