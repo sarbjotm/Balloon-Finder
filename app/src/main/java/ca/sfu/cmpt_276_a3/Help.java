@@ -17,25 +17,11 @@ public class Help extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        launchBackButton();
-
-    }
-
-
-    private void launchBackButton(){
-        Button btn = (Button) findViewById(R.id.btnBackFromHelp);
-        btn.setOnClickListener(new View.OnClickListener() {
-           @Override
-            public void onClick(View v) {
-                Intent intent = WelcomeScreen.makeIntent(Help.this);
-                finish();
-                startActivity(intent);
-            }
-        });
-
 
 
     }
+
+
     public static Intent makeIntent(Context context){
         return new Intent(context,Help.class);
     }
