@@ -22,4 +22,5 @@
     <string name="welcome_to_balloon_finder">Welcome to Balloon Finder</string>
     <string name="all_stores_have_sold_out_of_balloons_your_objective_is_to_n_find_the_missing_ballons_click_on_a_button_in_the_table_n_to_see_a_balloon_or_a_number_that_tells_you_the_number_of_n_balloons_in_the_row_and_column">All stores have sold out of balloons! Your objective is to \n find the missing ballons. Click on a button in the table \n to see a balloon or a number that tells you the number of \n balloons in the row and column</string>
     <string name="balloon">Balloon</string>
+    <string name="button_clicked">Button Clicked</string>
 </resources>
