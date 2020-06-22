@@ -21,11 +21,15 @@ public class Game {
 
     //count variables
     private int mineCount = 0;
+    private int scanCount = 0;
 
     //var for mine spawns
     private Random random = new Random();
     private final int isEmpty = 0;
     private final int isMine = 1;
+
+    //boolean var to check game state
+    private boolean gameOver = false;
 
     //actual game arena
     private int[][] field = new int[row][column];
@@ -57,14 +61,30 @@ public class Game {
         }
     }
 
-    //only for command line testing purposes
+    /**
+     * these printer codes are only for command line testing
+     * to check if logic holds up
+     */
     public void printGame(){
         // Loop through all rows
         for (int[] row : this.field)
             // converting each row as string
             // and then printing in a separate line
             System.out.println(Arrays.toString(row));
+        System.out.println("Mines found = " + getMineCount()
+                + " out of " + getMineGoal());
     }
+
+    public void printClicked(){
+        // Loop through all rows
+        for (boolean[] row : this.clicked)
+            // converting each row as string
+            // and then printing in a separate line
+            System.out.println(Arrays.toString(row));
+    }
+    /**
+     * end of printer check codes
+     */
 
     public void spawnMines(){
         int x, y;
@@ -82,8 +102,17 @@ public class Game {
 
     public void registerClick(int x, int y){
 
-        //condition to ignore mine cell of clicked already
-        if(isMine(x, y) && (isClicked(x, y) == false))
+        //check end of game case
+        if(isGameOver())
+        {
+            System.out.println("game over konoyaro.");
+            return;
+        }
+
+        System.out.println("click registered");
+
+        //condition to ignore mine cell if clicked already
+        if(isMine(x, y) && (!isClicked(x, y)))
         {
             System.out.println("Mine here!");//command line check
             this.mineCount++;
@@ -94,14 +123,23 @@ public class Game {
         Location click = new Location(x, y);
 
         //set value for display later
-        int minesFound = scan(x, y);
-        this.field[x][y] = 7;//command line check, remove
+        int minesFound = scan(x, y) - getMineCount();
         click.setScanValue(minesFound);
-        System.out.println("Mine found in click = " + minesFound);//command line check
+
+        //command line check code
+        System.out.println("Scanned mines within proximity = " + minesFound);//command line check
+        System.out.println("Scan check = " + getScanCount());
+
+        if(this.mineCount == this.mineGoal)
+            this.gameOver = true;
     }
 
     private int scan(int x, int y){//helper method to scan for mines
 
+        if(!isClicked(x, y)){
+            this.clicked[x][y] = true;
+            this.scanCount++;
+        }
         int scanValue = 0;
 
         //check all column cells
@@ -133,4 +171,6 @@ public class Game {
 
     public int getMineGoal(){ return this.mineGoal; }
     public int getMineCount(){ return this.mineCount; }
+    public int getScanCount(){ return this.scanCount; }
+    public boolean isGameOver(){ return this.gameOver; }
 }
