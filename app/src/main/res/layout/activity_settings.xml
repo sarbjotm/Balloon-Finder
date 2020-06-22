@@ -13,7 +13,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="30dp"
         android:fontFamily="monospace"
-        android:text="Settings"
+        android:text="@string/settings"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +25,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
         android:fontFamily="monospace"
-        android:text="Board Size"
+        android:text="@string/board_size"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/msgSettings" />
@@ -37,7 +37,7 @@
         android:layout_marginStart="60dp"
         android:layout_marginTop="20dp"
         android:fontFamily="monospace"
-        android:text="Number of Mines"
+        android:text="@string/number_of_balloons"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/msgBoardSize" />
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="50dp"
-        android:text="Clear Play Time"
+        android:text="@string/clear_play_time"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/msgNumberofMines" />
 </androidx.constraintlayout.widget.ConstraintLayout>
