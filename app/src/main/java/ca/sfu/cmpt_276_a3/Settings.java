@@ -33,13 +33,13 @@ public class Settings extends AppCompatActivity {
 
 
     private void createRadiobuttonForMines(){
-        RadioGroup group = (RadioGroup)findViewById(R.id.radioGroupMines);
-        String[] matrixSize = getResources().getStringArray(R.array.rowCol);
-        for(int i = 0; i < matrixSize.length; i++){
-            String matrix_size = matrixSize[i];
-            RadioButton button = new RadioButton(this);
-            button.setText(matrix_size);
-            group.addView(button);
+        RadioGroup group2 = (RadioGroup)findViewById(R.id.radioGroupMines);
+        int[] num_mines = getResources().getIntArray(R.array.num_of_mines);
+        for(int j = 0; j < num_mines.length; j++){
+            int num_mine = num_mines[j];
+            RadioButton button = button = new RadioButton(this);
+            button.setText(num_mine +"");
+            group2.addView(button);
 
         }
     }
