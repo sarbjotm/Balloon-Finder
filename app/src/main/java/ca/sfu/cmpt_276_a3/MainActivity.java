@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                 changeActivity = 1;
                 Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
                 startActivity(intent);
+                finish();
             }
         });
 

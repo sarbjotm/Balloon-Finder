@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="10dp"
-        android:text="@string/the_objective_of_this_game_is_to_find_the_number_of_mines_each_box_n_in_the_table_will_consist_of_either_a_mine_or_a_number_that_tells_the_user_n_how_many_mines_are_in_ts_column_and_row_n_n_to_win_clear_out_all_of_the_mines"
+        android:text="@string/all_stores_have_sold_out_of_balloons_your_objective_is_to_n_find_the_missing_ballons_click_on_a_button_in_the_table_n_to_see_a_balloon_or_a_number_that_tells_you_the_number_of_n_balloons_in_the_row_and_column"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
