@@ -17,7 +17,12 @@ import android.widget.TableRow;
 
 
 import static android.widget.TableRow.*;
+/*
 
+Helpful tips and tricks from Dr.Brian Fraser Videos
+
+
+ */
 public class MinesweeperGame extends AppCompatActivity {
     private static final int NUM_ROWS = 5;
     private static final int NUM_COLS = 10;

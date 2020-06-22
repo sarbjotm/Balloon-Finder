@@ -23,7 +23,7 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="monospace"
         android:text="@string/board_size"
         android:textSize="14sp"
@@ -33,22 +33,53 @@
     <TextView
         android:id="@+id/msgNumberofMines"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="monospace"
         android:text="@string/number_of_balloons"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/msgBoardSize" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroupBoard" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnClear"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="60dp"
         android:text="@string/clear_play_time"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/msgNumberofMines" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="134dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="60dp"
+        android:text="@string/save_settings"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.81"
+        app:layout_constraintStart_toEndOf="@+id/btnClear" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/msgBoardSize"
+        app:layout_constraintTop_toTopOf="@+id/msgBoardSize" />
+
+    <RadioGroup
+        android:id="@+id/radioGroupMines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/msgNumberofMines"
+        app:layout_constraintTop_toTopOf="@+id/msgNumberofMines" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
