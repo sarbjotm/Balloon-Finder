@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView welcomeText;
     private TextView authorsText;
     private static int TIME_OUT = 14000;
+    private int changeActivity = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +34,12 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
-                startActivity(intent);
-                finish();
+                if(changeActivity != 1){
+                    Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
         }, TIME_OUT);
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                changeActivity = 1;
                 Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
                 startActivity(intent);
             }

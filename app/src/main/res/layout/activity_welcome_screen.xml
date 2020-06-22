@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
 
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="horizontal"
     tools:context=".WelcomeScreen">
 
@@ -17,6 +18,7 @@
         android:fontFamily="monospace"
         android:text="Main Menu"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,5 +59,15 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnOptions" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="247dp"
+        android:layout_height="242dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mine" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
