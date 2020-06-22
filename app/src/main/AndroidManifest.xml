@@ -14,8 +14,12 @@
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             />
-        <activity android:name=".Help"/>
-        <activity android:name=".Settings"/>
+        <activity android:name=".Help"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
+        <activity android:name=".Settings"
+            android:screenOrientation="landscape"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".WelcomeScreen"
             android:screenOrientation="landscape"

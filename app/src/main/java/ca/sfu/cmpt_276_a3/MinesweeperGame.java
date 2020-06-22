@@ -24,11 +24,11 @@ public class MinesweeperGame extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void populateTable(){
         TableLayout table = (TableLayout) findViewById(R.id.tableGame);
-        for(int row = 0; row < 8; row++){
+        for(int row = 0; row < 4; row++){
             TableRow tablerow = new TableRow(this);
             table.addView(tablerow);
 
-            for(int col = 0; col < 8; col++){
+            for(int col = 0; col < 3; col++){
                 Button btn = new Button(this);
                 tablerow.addView(btn);
                 btn.setText("" + row + "," + col);

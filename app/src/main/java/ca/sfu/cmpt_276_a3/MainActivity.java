@@ -2,6 +2,7 @@ package ca.sfu.cmpt_276_a3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +25,6 @@ public class MainActivity extends AppCompatActivity {
         animation();
 
     }
-
-
-
 
 
     private void animation(){
@@ -66,5 +64,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public static Intent makeIntent(Context context){
+        return new Intent(context,MainActivity.class);
     }
 }
