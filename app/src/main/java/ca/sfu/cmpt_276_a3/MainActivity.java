@@ -4,15 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
 public class MainActivity extends AppCompatActivity {
     private TextView welcomeText;
+    private TextView authorsText;
+    private static int TIME_OUT = 14000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,25 +25,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+
+
+
     private void animation(){
         welcomeText = findViewById(R.id.welcome);
-        YoYo.with(Techniques.Wave)
-                .duration(5000)
-                .repeat(0)
-                .playOn(welcomeText);
-        Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
-        finish();
-        startActivity(intent);
+        authorsText = findViewById(R.id.Authors);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
+                startActivity(intent);
+                finish();
+            }
+        }, TIME_OUT);
+
+            YoYo.with(Techniques.Wave)
+                    .duration(5000)
+                    .repeat(0)
+                    .playOn(welcomeText);
+
+            YoYo.with(Techniques.FadeIn)
+                    .duration(5000)
+                    .repeat(0)
+                    .playOn(authorsText);
+
     }
+
 
     private void launchButton(){
         Button btn = (Button) findViewById(R.id.btnSkip);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
-            finish();
-            startActivity(intent);
+                Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
+                startActivity(intent);
             }
         });
 
