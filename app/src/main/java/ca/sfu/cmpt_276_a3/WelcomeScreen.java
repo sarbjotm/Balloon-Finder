@@ -15,10 +15,11 @@ public class WelcomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_screen);
         launchPlayButton();
+        launchHelpButton();
         launchSettingsButton();
     }
 
-    private void launchPlayButton() {
+    private void launchPlayButton(){
         Button btn = (Button) findViewById(R.id.btnPlay);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,7 +30,24 @@ public class WelcomeScreen extends AppCompatActivity {
         });
 
 
+
     }
+
+    private void launchHelpButton(){
+        Button btn = (Button) findViewById(R.id.btnHelp);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = Help.makeIntent(WelcomeScreen.this);
+                startActivity(intent);
+
+            }
+        });
+
+
+
+    }
+
     private void launchSettingsButton(){
         Button btn = (Button) findViewById(R.id.btnOptions);
         btn.setOnClickListener(new View.OnClickListener() {

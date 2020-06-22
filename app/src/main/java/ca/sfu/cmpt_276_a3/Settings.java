@@ -15,6 +15,7 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         createRadioButtonsForMatrix();
+        createRadiobuttonForMines();
 
     }
 
@@ -31,18 +32,19 @@ public class Settings extends AppCompatActivity {
     }
 
 
-    //TO DO: FIX THIS IMPLEMENTATION FOR NUMBER OF MINES
-//    private void createRadiobuttonForMines(){
-//        RadioGroup group2 = (RadioGroup)findViewById(R.id.radioGroupMines);
-//        int[] minesSize = getResources().getIntArray(R.array.minesRadio);
-//        for(int j = 0; j < minesSize.length; j++){
-//            int MineSize = minesSize[j];
-//            RadioButton button2 = new RadioButton(this);
-//            button2.setText(MineSize);
-//            group2.addView(button2);
-//
-//        }
-//    }
+    private void createRadiobuttonForMines(){
+        RadioGroup group = (RadioGroup)findViewById(R.id.radioGroupMines);
+        String[] matrixSize = getResources().getStringArray(R.array.rowCol);
+        for(int i = 0; i < matrixSize.length; i++){
+            String matrix_size = matrixSize[i];
+            RadioButton button = new RadioButton(this);
+            button.setText(matrix_size);
+            group.addView(button);
+
+        }
+    }
+
+
 
     public static Intent makeIntent(Context context){
         return new Intent(context,Settings.class);
