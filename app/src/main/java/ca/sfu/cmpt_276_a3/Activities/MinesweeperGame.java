@@ -1,4 +1,4 @@
-package ca.sfu.cmpt_276_a3;
+package ca.sfu.cmpt_276_a3.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -16,7 +16,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 
 
-import static android.widget.TableRow.*;
+import ca.sfu.cmpt_276_a3.R;
+
 /*
 
 Helpful tips and tricks from Dr.Brian Fraser Videos

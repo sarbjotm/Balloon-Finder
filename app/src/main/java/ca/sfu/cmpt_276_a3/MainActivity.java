@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+import ca.sfu.cmpt_276_a3.Activities.WelcomeScreen;
+
 public class MainActivity extends AppCompatActivity {
     private TextView welcomeText;
     private TextView authorsText;
@@ -24,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         launchButton();
         animation();
-
     }
 
 
@@ -55,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     private void launchButton(){
         Button btn = (Button) findViewById(R.id.btnSkip);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-
-
     }
 
     public static Intent makeIntent(Context context){

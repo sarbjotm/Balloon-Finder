@@ -1,4 +1,4 @@
-package ca.sfu.cmpt_276_a3;
+package ca.sfu.cmpt_276_a3.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import ca.sfu.cmpt_276_a3.R;
 
 public class Settings extends AppCompatActivity {
 
@@ -43,14 +45,13 @@ public class Settings extends AppCompatActivity {
             if (matrix_size == getMatrixSize(this)){
                 button.setChecked(true);
             }
-
-
         }
     }
 
     private void createRadiobuttonForMines(){
         RadioGroup group2 = (RadioGroup)findViewById(R.id.radioGroupMines);
         int[] num_mines = getResources().getIntArray(R.array.num_of_mines);
+
         for(int j = 0; j < num_mines.length; j++){
             final int num_mine = num_mines[j];
             RadioButton button = button = new RadioButton(this);
@@ -65,8 +66,8 @@ public class Settings extends AppCompatActivity {
             if (num_mine == getMinesAmount(this)){
                 button.setChecked(true);
             }
-
         }
+
     }
 
     private void saveMatrixSize(String matrix_size) {

@@ -1,4 +1,4 @@
-package ca.sfu.cmpt_276_a3;
+package ca.sfu.cmpt_276_a3.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import ca.sfu.cmpt_276_a3.R;
 
 public class WelcomeScreen extends AppCompatActivity {
 
@@ -28,9 +30,6 @@ public class WelcomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     private void launchHelpButton(){
@@ -40,12 +39,8 @@ public class WelcomeScreen extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = Help.makeIntent(WelcomeScreen.this);
                 startActivity(intent);
-
             }
         });
-
-
-
     }
 
     private void launchSettingsButton(){
@@ -57,9 +52,6 @@ public class WelcomeScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
     public static Intent makeIntent(Context context){

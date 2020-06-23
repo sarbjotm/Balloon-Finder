@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:orientation="horizontal"
-    tools:context=".WelcomeScreen">
+    tools:context=".Activities.WelcomeScreen">
 
     <TextView
         android:id="@+id/msgMainMeu"
