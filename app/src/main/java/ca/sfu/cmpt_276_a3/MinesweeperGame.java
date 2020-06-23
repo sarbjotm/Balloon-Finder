@@ -37,20 +37,23 @@ public class MinesweeperGame extends AppCompatActivity {
         populateTable();
     }
 
+    private void setUpMatrix(){
+        int numRows = Integer.parseInt(String.valueOf(Settings.getMatrixSize(this).charAt(0)));
+        NUM_ROWS = numRows;
+        if (NUM_ROWS == 4){
+            NUM_COLS = 6;
+        }
+        else if(NUM_ROWS == 5){
+            NUM_COLS =10;
+        }
+        else{
+            NUM_COLS = 15;
+        }
+    }
 
     @SuppressLint("SetTextI18n")
     private void populateTable(){
-//        int numRows = Integer.parseInt(String.valueOf(Settings.getMatrixSize(this).charAt(0)));
-//        NUM_ROWS = numRows;
-//        if (NUM_ROWS == 4){
-//            NUM_COLS = 6;
-//        }
-//        else if(NUM_ROWS == 5){
-//            NUM_COLS =10;
-//        }
-//        else{
-//            NUM_COLS = 15;
-//        }
+
         int numMines = Settings.getMinesAmount(this);
         NUM_MINES = numMines;
         TableLayout table = (TableLayout) findViewById(R.id.tableGame);
@@ -111,7 +114,8 @@ public class MinesweeperGame extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        populateTable();
+            setUpMatrix();
+
     }
 
     public static Intent makeIntent(Context context){
