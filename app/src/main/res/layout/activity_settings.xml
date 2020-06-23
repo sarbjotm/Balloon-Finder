@@ -53,17 +53,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="134dp"
-        android:layout_height="49dp"
-        android:layout_marginBottom="60dp"
-        android:text="@string/save_settings"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.81"
-        app:layout_constraintStart_toEndOf="@+id/btnClear" />
-
     <RadioGroup
         android:id="@+id/radioGroupBoard"
         android:layout_width="wrap_content"

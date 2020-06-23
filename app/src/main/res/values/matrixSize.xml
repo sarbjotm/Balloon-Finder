@@ -5,5 +5,7 @@
         <item>5x10</item>
         <item>6x16</item>
     </string-array>
+    
+    <string name="default_size">4x6</string>
 
 </resources>
