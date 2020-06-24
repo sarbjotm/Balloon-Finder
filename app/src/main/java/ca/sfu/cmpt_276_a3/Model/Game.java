@@ -35,6 +35,7 @@ public class Game {
     private int[][] field = new int[row][column];
     private boolean[][] clicked = new boolean[row][column];//to register click
     private List<Location> clickedLocations = new ArrayList<>();
+    private List<Location> mineLocations = new ArrayList<>();
 
     //constructor: this method must only be called once
     public Game(int row, int column, int mineGoal){
@@ -88,6 +89,7 @@ public class Game {
 
     public void spawnMines(){
         int x, y;
+        Location mineTemp;
         for(int i = 0; i < this.mineGoal; i++){
 
             do {
@@ -95,6 +97,10 @@ public class Game {
                 y = random.nextInt(column - 1) + 1;
             } while (this.field[x][y] != isEmpty);
             this.field[x][y] = isMine;
+
+            //store mine locations for use later on
+            mineTemp = new Location(x, y);
+            this.mineLocations.add(mineTemp);
         }
 
         System.out.println(row + ", " + column);//command line test code
@@ -123,8 +129,9 @@ public class Game {
         Location click = new Location(x, y);
 
         //set value for display later
-        int minesFound = scan(x, y) - getMineCount();
+        int minesFound = scan(x, y);
         click.setScanValue(minesFound);
+        this.clickedLocations.add(click);
 
         //command line check code
         System.out.println("Scanned mines within proximity = " + minesFound);//command line check
@@ -134,7 +141,7 @@ public class Game {
             this.gameOver = true;
     }
 
-    private int scan(int x, int y){//helper method to scan for mines
+    public int scan(int x, int y){//helper method to scan for mines
 
         if(!isClicked(x, y)){
             this.clicked[x][y] = true;
@@ -155,17 +162,17 @@ public class Game {
                 scanValue++;
         }
 
-        return scanValue;//return mines within proximity
+        return (scanValue - getMineCount());//return mines within proximity
     }
 
-    private boolean isMine(int x, int y){//check if cell has mine
+    public boolean isMine(int x, int y){//check if cell has mine
         if(this.field[x][y] == isMine)
             return true;
         else
             return false;
     }
 
-    private boolean isClicked(int x, int y){//check if cell has been clicked
+    public boolean isClicked(int x, int y){//check if cell has been clicked
         return this.clicked[x][y];
     }
 
