@@ -152,8 +152,7 @@ public class MinesweeperGame extends AppCompatActivity {
                     //check clicked location in closest proximity to mine cell
                     if (location.getX() == row || location.getY() == col) {
                         tempButton = buttons[location.getX()][location.getY()];
-                        int scanVal = game.scan(location.getX(), location.getY()) -
-                                game.getMineCount();
+                        int scanVal = game.scan(location.getX(), location.getY());
 
                         //check scanVal cases
                         if (scanVal > 0)
