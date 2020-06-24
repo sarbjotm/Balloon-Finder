@@ -3,7 +3,11 @@ package ca.sfu.cmpt_276_a3.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -25,6 +29,7 @@ import java.util.List;
 
 import ca.sfu.cmpt_276_a3.MainActivity;
 import ca.sfu.cmpt_276_a3.Model.Game;
+import ca.sfu.cmpt_276_a3.Model.PopUp;
 import ca.sfu.cmpt_276_a3.R;
 
 /*
@@ -39,6 +44,7 @@ public class MinesweeperGame extends AppCompatActivity {
     private static int NUM_MINES = 6;
     private static int scansUsed = 0;
     private int minesUsed = 0;
+    private int goBack = 0;
 
 
     //Logic binding with array of buttons
@@ -66,6 +72,7 @@ public class MinesweeperGame extends AppCompatActivity {
         else{
             NUM_COLS = 15;
         }
+        Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
 
     }
 
@@ -148,7 +155,8 @@ public class MinesweeperGame extends AppCompatActivity {
 
 
             if(minesUsed == NUM_MINES){
-                Toast.makeText(this,"WINNNER IS YOU", Toast.LENGTH_LONG).show();
+                createDialog();
+
             }
 
 
@@ -165,12 +173,29 @@ public class MinesweeperGame extends AppCompatActivity {
         }
     }
 
+
+    private void createDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("WINNER!")
+                .setMessage("Congrats on winning!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = WelcomeScreen.makeIntent(MinesweeperGame.this);
+                        finish();
+
+                    }
+                });
+        builder.create().show();
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
             scansUsed = 0;
             minesUsed = 0;
             setUpMatrix();
+
 
 
 

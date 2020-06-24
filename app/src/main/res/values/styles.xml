@@ -6,5 +6,10 @@
         <item name="colorPrimaryDark">@android:color/background_dark</item>
         <item name="colorAccent">@android:color/background_light</item>
     </style>
+    
+    <style name="AppTheme.CustomTheme">
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
 
 </resources>
