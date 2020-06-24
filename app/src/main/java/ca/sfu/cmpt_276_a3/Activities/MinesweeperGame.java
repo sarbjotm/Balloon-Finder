@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.sfu.cmpt_276_a3.Model.Game;
+import ca.sfu.cmpt_276_a3.Model.Location;
 import ca.sfu.cmpt_276_a3.R;
 
 /*
@@ -28,6 +29,7 @@ Helpful tips and tricks from Dr.Brian Fraser Videos
 
 
  */
+@SuppressWarnings("IfStatementWithIdenticalBranches")
 public class MinesweeperGame extends AppCompatActivity {
     private static int NUM_ROWS = 4;
     private static int NUM_COLS = 6;
@@ -36,7 +38,7 @@ public class MinesweeperGame extends AppCompatActivity {
     //Logic binding with array of buttons
     private Game game;
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
-    List<Button> clickedButtons = new ArrayList<>();
+    List<Location> clickedLocations = new ArrayList<>();
     private int test = 0;//nani the fuck is this for?
 
     @Override
@@ -104,7 +106,9 @@ public class MinesweeperGame extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col){
+
         Button button = buttons[row][col];
+        Button tempButton;//to change scan values of previously clicked buttons
 
         //Prevents button being changed after image
         for(int rowAdjust = 0; rowAdjust < NUM_ROWS; rowAdjust++){
@@ -121,16 +125,71 @@ public class MinesweeperGame extends AppCompatActivity {
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
 
-        if(game.isMine(row, col)){
-            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.balloon);
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+        if(game.isMine(row, col)) {
+            //adjust photo to change into balloon
+            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.balloon);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+                    newWidth, newHeight, true);
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+
+            //if mine location clicked again for scan
+            if (game.isClicked(row, col)) {
+                button.setText(game.scan(row, col) + "");
+
+                //register mine location as clicked location to be scanned.
+                Location clickedLocation = new Location(row, col);
+                clickedLocation.setScanValue(game.scan(row, col));
+                clickedLocations.add(clickedLocation);
+            }
+
+            //modify scan values of all other clicked locations in close proximity to it
+            if (clickedLocations.size() > 0) {
+
+                for (Location location : clickedLocations) {
+
+                    //check clicked location in closest proximity to mine cell
+                    if (location.getX() == row || location.getY() == col) {
+                        tempButton = buttons[location.getX()][location.getY()];
+                        int scanVal = game.scan(location.getX(), location.getY()) -
+                                game.getMineCount();
+
+                        //check scanVal cases
+                        if (scanVal > 0)
+                            tempButton.setText(scanVal + "");
+                        else
+                            tempButton.setText(0 + "");
+                    }
+
+                    else
+                        continue;
+                }//end of for loop
+
+            }//end of adjusting scanValues
+
+            //register the click in game
+            game.registerClick(row, col);
+
+            //game over condition
+            if(game.isGameOver()){
+                //change all button values
+                for (Location location : clickedLocations) {
+                    tempButton = buttons[location.getX()][location.getY()];
+                    tempButton.setText(0 + "");
+                }
+                //TODO: put pop-up here, Amander
+            }
         }
-        else{
+        else{//if not mine
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource));
             button.setText(game.scan(row, col) + "");
+
+            Location clickedLocation = new Location(row, col);
+            clickedLocation.setScanValue(game.scan(row, col));
+            clickedLocations.add(clickedLocation);
+            game.registerClick(row, col);
         }
     }
 
