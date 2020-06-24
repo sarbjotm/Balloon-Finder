@@ -23,7 +23,7 @@ public class Settings extends AppCompatActivity {
         createRadiobuttonForMines();
         radiobuttonForMatrix();
         int savedMatrixValue = getMatrixSize(this);
-        Toast.makeText(this,"Saved: " + savedMatrixValue, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,"Saved: " + savedMatrixValue, Toast.LENGTH_LONG).show();
         int savedMinesAmount = getMinesAmount(this);
     }
 
@@ -75,6 +75,19 @@ public class Settings extends AppCompatActivity {
             if (num_size == getMatrixSize(this)){
                 button.setChecked(true);
             }
+        }
+
+    }
+
+    static public int getColumnSize(int rows){
+        if (rows == 4){
+            return 6;
+        }
+        else if(rows == 5){
+            return 10;
+        }
+        else{
+            return 15;
         }
 
     }

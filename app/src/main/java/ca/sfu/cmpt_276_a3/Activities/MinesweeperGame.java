@@ -14,11 +14,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.sfu.cmpt_276_a3.MainActivity;
 import ca.sfu.cmpt_276_a3.Model.Game;
 import ca.sfu.cmpt_276_a3.R;
 
@@ -29,15 +34,17 @@ Helpful tips and tricks from Dr.Brian Fraser Videos
 
  */
 public class MinesweeperGame extends AppCompatActivity {
-    private static int NUM_ROWS = 4;
+    private static int NUM_ROWS = 6;
     private static int NUM_COLS = 6;
     private static int NUM_MINES = 6;
+    private static int scansUsed = 0;
+    private int minesUsed = 0;
+
 
     //Logic binding with array of buttons
     private Game game;
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
     List<Button> clickedButtons = new ArrayList<>();
-    private int test = 0;//nani the fuck is this for?
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +54,7 @@ public class MinesweeperGame extends AppCompatActivity {
     }
 
     private void setUpMatrix(){
-        int numRows = Integer.parseInt(String.valueOf
-                (Settings.getMatrixSize(this).charAt(0)));
+        int numRows = Settings.getMatrixSize(this);
         NUM_ROWS = numRows;
 
         if (NUM_ROWS == 4){
@@ -65,8 +71,9 @@ public class MinesweeperGame extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void populateTable(){
-
         int numMines = Settings.getMinesAmount(this);
+//        setUpMatrix();
+//        Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
         NUM_MINES = numMines;
         game = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
 
@@ -88,7 +95,7 @@ public class MinesweeperGame extends AppCompatActivity {
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f));
-                btn.setText("" + row + "," + col);
+                btn.setText("");
                 //Make text show on all types of buttons
                 btn.setPadding(0,0,0,0);
                 btn.setOnClickListener(new View.OnClickListener(){
@@ -104,6 +111,8 @@ public class MinesweeperGame extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col){
+        TextView scansUsedText = (TextView) findViewById(R.id.textView6);
+        TextView minesView = (TextView) findViewById(R.id.textViewMinesFound);
         Button button = buttons[row][col];
 
         //Prevents button being changed after image
@@ -126,18 +135,41 @@ public class MinesweeperGame extends AppCompatActivity {
             Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+
+//            Toast.makeText(this,button.getBackground().toString(),Toast.LENGTH_LONG).show();
+            if(button.getText().toString() == ""){
+                scansUsed = scansUsed + 1;
+                minesUsed = minesUsed + 1;
+//                Toast.makeText(this,minesUsed +"", Toast.LENGTH_LONG).show();
+                scansUsedText.setText(scansUsed + "");
+                minesView.setText(minesUsed + "");
+                button.setText(" ");
+            }
+
+
+
+
         }
         else{
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource));
+            if (button.getText().toString() == ""){
+                scansUsed = scansUsed + 1;
+                scansUsedText.setText(scansUsed + "");
+            }
             button.setText(game.scan(row, col) + "");
+
         }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+            scansUsed = 0;
+            minesUsed = 0;
             setUpMatrix();
+
+
 
     }
 
