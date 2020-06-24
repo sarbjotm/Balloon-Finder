@@ -147,6 +147,9 @@ public class MinesweeperGame extends AppCompatActivity {
             }
 
 
+            if(minesUsed == NUM_MINES){
+                Toast.makeText(this,"WINNNER IS YOU", Toast.LENGTH_LONG).show();
+            }
 
 
         }
