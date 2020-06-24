@@ -1,6 +1,8 @@
 package ca.sfu.cmpt_276_a3.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,40 +15,18 @@ import android.widget.Toast;
 import ca.sfu.cmpt_276_a3.R;
 
 public class Settings extends AppCompatActivity {
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        createRadioButtonsForMatrix();
         createRadiobuttonForMines();
-        String savedMatrixValue = getMatrixSize(this);
+        radiobuttonForMatrix();
+        int savedMatrixValue = getMatrixSize(this);
         Toast.makeText(this,"Saved: " + savedMatrixValue, Toast.LENGTH_LONG).show();
         int savedMinesAmount = getMinesAmount(this);
     }
 
-    private void createRadioButtonsForMatrix(){
-        RadioGroup group = (RadioGroup)findViewById(R.id.radioGroupBoard);
-        String[] matrixSize = getResources().getStringArray(R.array.rowCol);
-        for(int i = 0; i < matrixSize.length; i++){
-            final String matrix_size = matrixSize[i];
-            RadioButton button = new RadioButton(this);
-            button.setText(matrix_size);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    saveMatrixSize(matrix_size);
-                }
-            });
-            group.addView(button);
-
-            //Select default button
-            if (matrix_size == getMatrixSize(this)){
-                button.setChecked(true);
-            }
-        }
-    }
 
     private void createRadiobuttonForMines(){
         RadioGroup group2 = (RadioGroup)findViewById(R.id.radioGroupMines);
@@ -70,11 +50,33 @@ public class Settings extends AppCompatActivity {
 
     }
 
-    private void saveMatrixSize(String matrix_size) {
-        SharedPreferences prefs = this.getSharedPreferences("AppPrefs",MODE_PRIVATE);
-        SharedPreferences.Editor editor = prefs.edit();
-        editor.putString("MatrixSize", matrix_size);
-        editor.apply();
+    private void radiobuttonForMatrix(){
+        RadioGroup group = (RadioGroup)findViewById(R.id.radioGroupBoard);
+        int[] num_size_array = getResources().getIntArray(R.array.size_of_matrix);
+        for(int j = 0; j < num_size_array.length; j++){
+            final int num_size = num_size_array[j];
+            RadioButton button = button = new RadioButton(this);
+            if(num_size == 4){
+                button.setText(num_size+"x6");
+            }
+            else if (num_size == 5){
+                button.setText(num_size+"x10");
+            }
+            else{
+                button.setText(num_size+"x15");
+            }
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    saveMatrixSize(num_size);
+                }
+            });
+            group.addView(button);
+            if (num_size == getMatrixSize(this)){
+                button.setChecked(true);
+            }
+        }
+
     }
 
 
@@ -85,14 +87,6 @@ public class Settings extends AppCompatActivity {
         editor.apply();
     }
 
-    //static so any activity can access
-    static public String getMatrixSize(Context context){
-        SharedPreferences prefs = context.getSharedPreferences("AppPrefs",MODE_PRIVATE);
-        String defaultValue2 = context.getResources().getString(R.string.default_size);
-        return prefs.getString("MatrixSize",defaultValue2);
-
-    }
-
     static public int getMinesAmount(Context context){
         SharedPreferences prefs = context.getSharedPreferences("AppPrefs2",MODE_PRIVATE);
         int defaultValue = context.getResources().getInteger(R.integer.default_mines);
@@ -100,6 +94,21 @@ public class Settings extends AppCompatActivity {
 
     }
 
+    private void saveMatrixSize(int num_size) {
+        SharedPreferences prefs = this.getSharedPreferences("AppPrefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("MatrixSize", num_size);
+        editor.apply();
+    }
+
+
+
+
+    static public int getMatrixSize(Context context){
+        SharedPreferences prefs2 = context.getSharedPreferences("AppPrefs",MODE_PRIVATE);
+        int defaultValue = context.getResources().getInteger(R.integer.default_size);
+        return prefs2.getInt("MatrixSize",defaultValue);
+    }
 
 
 

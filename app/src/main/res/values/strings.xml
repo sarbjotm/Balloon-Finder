@@ -24,4 +24,7 @@
     <string name="balloon">Balloon</string>
     <string name="button_clicked">Button Clicked</string>
     <string name="save_settings">Save Settings</string>
+    <string name="_4x6">4x6</string>
+    <string name="_5x10">5x10</string>
+    <string name="_6x15">6x15</string>
 </resources>

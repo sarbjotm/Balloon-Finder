@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="rowCol">
-        <item>4x6</item>
-        <item>5x10</item>
-        <item>6x16</item>
-    </string-array>
-    
-    <string name="default_size">4x6</string>
+    <integer-array name="size_of_matrix">
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </integer-array>
 
+    <integer name="default_size">4</integer>
 </resources>
