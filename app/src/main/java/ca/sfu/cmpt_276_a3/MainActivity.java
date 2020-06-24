@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView authorsText;
     private static int TIME_OUT = 14000;
     private int changeActivity = 0;
+    private MediaPlayer songPlayer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
