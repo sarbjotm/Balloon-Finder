@@ -61,7 +61,7 @@ public class MinesweeperGame extends AppCompatActivity {
         counter.setText(times_played+"");
         populateTable();
     }
-
+    //Comment to fix push error
     private void setUpMatrix(){
         int numRows = Settings.getMatrixSize(this);
         NUM_ROWS = numRows;
