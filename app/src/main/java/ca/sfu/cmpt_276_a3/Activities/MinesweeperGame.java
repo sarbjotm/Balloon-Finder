@@ -40,6 +40,8 @@ Helpful tips and tricks from Dr.Brian Fraser Videos
  */
 @SuppressWarnings("IfStatementWithIdenticalBranches")
 public class MinesweeperGame extends AppCompatActivity {
+
+    //Varialbes to use
     private static int NUM_ROWS = 4;
     private static int NUM_COLS = 6;
     private static int NUM_MINES = 6;

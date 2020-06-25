@@ -16,7 +16,7 @@ public class Help extends AppCompatActivity {
         setContentView(R.layout.activity_help);
     }
 
-
+    //Make Intent
     public static Intent makeIntent(Context context){
         return new Intent(context,Help.class);
     }

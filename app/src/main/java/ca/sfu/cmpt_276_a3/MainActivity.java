@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                //So app will not autoreset after this time
                 if(changeActivity != 1){
                     Intent intent = WelcomeScreen.makeIntent(MainActivity.this);
                     startActivity(intent);
