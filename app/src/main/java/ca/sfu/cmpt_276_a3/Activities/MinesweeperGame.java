@@ -39,13 +39,13 @@ Helpful tips and tricks from Dr.Brian Fraser Videos
 
  */
 public class MinesweeperGame extends AppCompatActivity {
-    private static int NUM_ROWS = 6;
+    private static int NUM_ROWS = 4;
     private static int NUM_COLS = 6;
     private static int NUM_MINES = 6;
     private static int scansUsed = 0;
     private int minesUsed = 0;
     private int goBack = 0;
-
+    public static int times_played = 0;
 
     //Logic binding with array of buttons
     private Game game;
@@ -56,6 +56,9 @@ public class MinesweeperGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minesweeper_game);
+        times_played = times_played + 1;
+        TextView counter = (TextView) findViewById(R.id.timesPlayed);
+        counter.setText(times_played+"");
         populateTable();
     }
 
@@ -78,6 +81,7 @@ public class MinesweeperGame extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void populateTable(){
+
         int numMines = Settings.getMinesAmount(this);
 //        setUpMatrix();
 //        Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
@@ -173,10 +177,10 @@ public class MinesweeperGame extends AppCompatActivity {
         }
     }
 
-
     private void createDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("WINNER!")
+                .setCancelable(false)
                 .setMessage("Congrats on winning!")
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

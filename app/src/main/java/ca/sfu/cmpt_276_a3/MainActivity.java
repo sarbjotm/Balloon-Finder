@@ -18,9 +18,9 @@ import ca.sfu.cmpt_276_a3.Activities.WelcomeScreen;
 public class MainActivity extends AppCompatActivity {
     private TextView welcomeText;
     private TextView authorsText;
-    private static int TIME_OUT = 14000;
+    private static int TIME_OUT = 13000;
     private int changeActivity = 0;
-    private MediaPlayer songPlayer;
+//    private MediaPlayer songPlayer;
 
 
     @Override
