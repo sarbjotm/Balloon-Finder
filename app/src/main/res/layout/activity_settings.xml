@@ -71,5 +71,5 @@
         android:orientation="horizontal"
         app:layout_constraintStart_toEndOf="@+id/msgNumberOfMines"
         app:layout_constraintTop_toBottomOf="@+id/radioGroupBoard" />
-
+<!--Comment-->
 </androidx.constraintlayout.widget.ConstraintLayout>

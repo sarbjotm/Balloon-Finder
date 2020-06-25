@@ -27,6 +27,7 @@ public class PopUp extends AppCompatDialogFragment {
                         startActivity(intent);
                     }
                 });
+        //Create Dialog
         return builder.create();
     }
 

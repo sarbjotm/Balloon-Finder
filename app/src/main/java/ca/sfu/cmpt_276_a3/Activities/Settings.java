@@ -33,7 +33,7 @@ public class Settings extends AppCompatActivity {
         int savedMinesAmount = getMinesAmount(this);
         int savedMatrixCols = getColumnSize(savedMatrixValue);
     }
-
+    //Push Comment
     private void clearButton(){
         Button btn = (Button) findViewById(R.id.btnClear);
         btn.setOnClickListener(new View.OnClickListener() {
