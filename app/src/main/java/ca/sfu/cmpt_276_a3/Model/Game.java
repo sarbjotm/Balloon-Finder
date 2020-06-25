@@ -34,7 +34,6 @@ public class Game {
     //actual game arena
     private int[][] field = new int[row][column];
     private boolean[][] clicked = new boolean[row][column];//to register click
-    private List<Location> clickedLocations = new ArrayList<>();
     private List<Location> mineLocations = new ArrayList<>();
 
     //constructor: this method must only be called once
@@ -110,12 +109,7 @@ public class Game {
 
         //check end of game case
         if(isGameOver())
-        {
-            System.out.println("game over konoyaro.");
             return;
-        }
-
-        System.out.println("click registered");
 
         //condition to ignore mine cell if clicked already
         if(isMine(x, y) && (!isClicked(x, y)))
@@ -127,11 +121,10 @@ public class Game {
         }
 
         Location click = new Location(x, y);
-
         //set value for display later
         int minesFound = scan(x, y);
+        this.scanCount++;
         click.setScanValue(minesFound);
-        this.clickedLocations.add(click);
 
         //command line check code
         System.out.println("Scanned mines within proximity = " + minesFound);//command line check
@@ -145,24 +138,22 @@ public class Game {
 
         if(!isClicked(x, y)){
             this.clicked[x][y] = true;
-            this.scanCount++;
         }
         int scanValue = 0;
 
         //check all column cells
-        for(int i = 0; i < row; i++)
-        {
-            if(isMine(i, y))
+        for(int i = 0; i < row; i++){
+            if(isMine(i, y) && !isClicked(x, y))
                 scanValue++;
         }
 
         //check all row cells
         for(int j = 0; j < column; j++){
-            if(isMine(x, j))
+            if(isMine(x, j) && !isClicked(x, j))
                 scanValue++;
         }
 
-        return (scanValue - getMineCount());//return mines within proximity
+        return scanValue;//return mines within proximity
     }
 
     public boolean isMine(int x, int y){//check if cell has mine

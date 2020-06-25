@@ -38,6 +38,7 @@ Helpful tips and tricks from Dr.Brian Fraser Videos
 
 
  */
+@SuppressWarnings("IfStatementWithIdenticalBranches")
 public class MinesweeperGame extends AppCompatActivity {
     private static int NUM_ROWS = 4;
     private static int NUM_COLS = 6;
@@ -125,6 +126,7 @@ public class MinesweeperGame extends AppCompatActivity {
         TextView scansUsedText = (TextView) findViewById(R.id.textView6);
         TextView minesView = (TextView) findViewById(R.id.textViewMinesFound);
         Button button = buttons[row][col];
+        Button tempButton;//to change scan values of previously clicked buttons
 
         //Prevents button being changed after image
         for(int rowAdjust = 0; rowAdjust < NUM_ROWS; rowAdjust++){
@@ -141,9 +143,12 @@ public class MinesweeperGame extends AppCompatActivity {
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
 
-        if(game.isMine(row, col)){
-            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.balloon);
-            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+        if(game.isMine(row, col)) {
+            //adjust photo to change into balloon
+            Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(),
+                    R.drawable.balloon);
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,
+                    newWidth, newHeight, true);
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
@@ -165,7 +170,7 @@ public class MinesweeperGame extends AppCompatActivity {
 
 
         }
-        else{
+        else{//if not mine
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource));
             if (button.getText().toString() == ""){
