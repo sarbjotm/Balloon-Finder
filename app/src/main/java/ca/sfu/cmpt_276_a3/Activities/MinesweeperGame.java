@@ -3,7 +3,11 @@ package ca.sfu.cmpt_276_a3.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -14,13 +18,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.sfu.cmpt_276_a3.MainActivity;
 import ca.sfu.cmpt_276_a3.Model.Game;
-import ca.sfu.cmpt_276_a3.Model.Location;
+import ca.sfu.cmpt_276_a3.Model.PopUp;
 import ca.sfu.cmpt_276_a3.R;
 
 /*
@@ -34,23 +43,28 @@ public class MinesweeperGame extends AppCompatActivity {
     private static int NUM_ROWS = 4;
     private static int NUM_COLS = 6;
     private static int NUM_MINES = 6;
+    private static int scansUsed = 0;
+    private int minesUsed = 0;
+    private int goBack = 0;
+    public static int times_played = 0;
 
     //Logic binding with array of buttons
     private Game game;
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
-    List<Location> clickedLocations = new ArrayList<>();
-    private int test = 0;//nani the fuck is this for?
+    List<Button> clickedButtons = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_minesweeper_game);
+        times_played = times_played + 1;
+        TextView counter = (TextView) findViewById(R.id.timesPlayed);
+        counter.setText(times_played+"");
         populateTable();
     }
 
     private void setUpMatrix(){
-        int numRows = Integer.parseInt(String.valueOf
-                (Settings.getMatrixSize(this).charAt(0)));
+        int numRows = Settings.getMatrixSize(this);
         NUM_ROWS = numRows;
 
         if (NUM_ROWS == 4){
@@ -62,6 +76,7 @@ public class MinesweeperGame extends AppCompatActivity {
         else{
             NUM_COLS = 15;
         }
+        Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
 
     }
 
@@ -69,6 +84,8 @@ public class MinesweeperGame extends AppCompatActivity {
     private void populateTable(){
 
         int numMines = Settings.getMinesAmount(this);
+//        setUpMatrix();
+//        Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
         NUM_MINES = numMines;
         game = new Game(NUM_ROWS, NUM_COLS, NUM_MINES);
 
@@ -90,7 +107,7 @@ public class MinesweeperGame extends AppCompatActivity {
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f));
-                btn.setText("" + row + "," + col);
+                btn.setText("");
                 //Make text show on all types of buttons
                 btn.setPadding(0,0,0,0);
                 btn.setOnClickListener(new View.OnClickListener(){
@@ -106,7 +123,8 @@ public class MinesweeperGame extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int row, int col){
-
+        TextView scansUsedText = (TextView) findViewById(R.id.textView6);
+        TextView minesView = (TextView) findViewById(R.id.textViewMinesFound);
         Button button = buttons[row][col];
         Button tempButton;//to change scan values of previously clicked buttons
 
@@ -134,68 +152,61 @@ public class MinesweeperGame extends AppCompatActivity {
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
-            //if mine location clicked again for scan
-            if (game.isClicked(row, col)) {
-                button.setText(game.scan(row, col) + "");
-
-                //register mine location as clicked location to be scanned.
-                Location clickedLocation = new Location(row, col);
-                clickedLocation.setScanValue(game.scan(row, col));
-                clickedLocations.add(clickedLocation);
+//            Toast.makeText(this,button.getBackground().toString(),Toast.LENGTH_LONG).show();
+            if(button.getText().toString() == ""){
+                scansUsed = scansUsed + 1;
+                minesUsed = minesUsed + 1;
+//                Toast.makeText(this,minesUsed +"", Toast.LENGTH_LONG).show();
+                scansUsedText.setText(scansUsed + "");
+                minesView.setText(minesUsed + "");
+                button.setText(" ");
             }
 
-            //modify scan values of all other clicked locations in close proximity to it
-            if (clickedLocations.size() > 0) {
 
-                for (Location location : clickedLocations) {
+            if(minesUsed == NUM_MINES){
+                createDialog();
 
-                    //check clicked location in closest proximity to mine cell
-                    if (location.getX() == row || location.getY() == col) {
-                        tempButton = buttons[location.getX()][location.getY()];
-                        int scanVal = game.scan(location.getX(), location.getY());
-
-                        //check scanVal cases
-                        if (scanVal > 0)
-                            tempButton.setText(scanVal + "");
-                        else
-                            tempButton.setText(0 + "");
-                    }
-
-                    else
-                        continue;
-                }//end of for loop
-
-            }//end of adjusting scanValues
-
-            //register the click in game
-            game.registerClick(row, col);
-
-            //game over condition
-            if(game.isGameOver()){
-                //change all button values
-                for (Location location : clickedLocations) {
-                    tempButton = buttons[location.getX()][location.getY()];
-                    tempButton.setText(0 + "");
-                }
-                //TODO: put pop-up here, Amander
             }
+
+
         }
         else{//if not mine
             Resources resource = getResources();
             button.setBackground(new BitmapDrawable(resource));
+            if (button.getText().toString() == ""){
+                scansUsed = scansUsed + 1;
+                scansUsedText.setText(scansUsed + "");
+            }
             button.setText(game.scan(row, col) + "");
 
-            Location clickedLocation = new Location(row, col);
-            clickedLocation.setScanValue(game.scan(row, col));
-            clickedLocations.add(clickedLocation);
-            game.registerClick(row, col);
         }
+    }
+
+    private void createDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("WINNER!")
+                .setCancelable(false)
+                .setMessage("Congrats on winning!")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = WelcomeScreen.makeIntent(MinesweeperGame.this);
+                        finish();
+
+                    }
+                });
+        builder.create().show();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+            scansUsed = 0;
+            minesUsed = 0;
             setUpMatrix();
+
+
+
 
     }
 

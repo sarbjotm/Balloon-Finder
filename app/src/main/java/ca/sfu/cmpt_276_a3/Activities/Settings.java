@@ -8,13 +8,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import ca.sfu.cmpt_276_a3.MainActivity;
 import ca.sfu.cmpt_276_a3.R;
 
 public class Settings extends AppCompatActivity {
+    public static int savedMatrixValue;
+    public static int SavedMinesAmount;
+    public static int getSavedMatrixCols;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -22,11 +27,22 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         createRadiobuttonForMines();
         radiobuttonForMatrix();
+        clearButton();
         int savedMatrixValue = getMatrixSize(this);
-        Toast.makeText(this,"Saved: " + savedMatrixValue, Toast.LENGTH_LONG).show();
+//        Toast.makeText(this,"Saved: " + savedMatrixValue, Toast.LENGTH_LONG).show();
         int savedMinesAmount = getMinesAmount(this);
+        int savedMatrixCols = getColumnSize(savedMatrixValue);
     }
 
+    private void clearButton(){
+        Button btn = (Button) findViewById(R.id.btnClear);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MinesweeperGame.times_played = 0;
+            }
+        });
+    }
 
     private void createRadiobuttonForMines(){
         RadioGroup group2 = (RadioGroup)findViewById(R.id.radioGroupMines);
@@ -75,6 +91,19 @@ public class Settings extends AppCompatActivity {
             if (num_size == getMatrixSize(this)){
                 button.setChecked(true);
             }
+        }
+
+    }
+
+    static public int getColumnSize(int rows){
+        if (rows == 4){
+            return 6;
+        }
+        else if(rows == 5){
+            return 10;
+        }
+        else{
+            return 15;
         }
 
     }
